@@ -11,10 +11,14 @@
             "id": "7ff49c50ea88135a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Welcome.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Welcome"
             }
           }
         ]
@@ -173,11 +177,13 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7372a38aa22c1c84",
+  "active": "7ff49c50ea88135a",
   "lastOpenFiles": [
+    "CLAUDE.md",
     "moc",
     "wiki",
     "raw-sources",
