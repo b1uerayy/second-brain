@@ -177,8 +177,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7ff49c50ea88135a",
+  "active": "7372a38aa22c1c84",
   "lastOpenFiles": [
+    "brain.py",
+    "brain.txt",
+    "New Text Document.txt",
     "raw-sources/OOP Concepts in Python.md",
     "raw-sources/Study Tips for Exams.md",
     "raw-sources/How to Study Like a Peak Human The Neuroscience of Learning.md",
