@@ -11,14 +11,10 @@
             "id": "7ff49c50ea88135a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "raw-sources/OOP Concepts in Python.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "OOP Concepts in Python"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -183,8 +179,8 @@
   },
   "active": "7ff49c50ea88135a",
   "lastOpenFiles": [
-    "raw-sources/Study Tips for Exams.md",
     "raw-sources/OOP Concepts in Python.md",
+    "raw-sources/Study Tips for Exams.md",
     "raw-sources/How to Study Like a Peak Human The Neuroscience of Learning.md",
     "raw-sources/Biogas and India's energy mix A long-term bet we are making.md",
     "raw-sources/The Quiet Anxiety That Can Drive Action.md",
