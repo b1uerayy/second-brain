@@ -5,7 +5,7 @@ import os, sys, json, datetime, requests, glob
 
 # ── CONFIGURATION ───────────────────────────────────────────
 VAULT_PATH = os.path.expanduser(r"C:/Users/Rehan/second-brain")
-MODEL = "qwen2.5:14b"   # safer for your system (change to 14b later if needed)
+MODEL = "qwen2.5:7b"   # safer for your system (change to 14b later if needed)
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MAX_CHARS = 12000
 
