@@ -69,11 +69,20 @@ def read_file(path):
 
 
 def write_file(path, content):
-    """Write content to a file, creating directories if needed."""
+    """Write content only if it has changed."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    if os.path.exists(path):
+        old = read_file(path)
+        if old == content:
+            print(f"  [unchanged] {os.path.relpath(path, VAULT_PATH)}")
+            return False
+
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"  [wrote]    {os.path.relpath(path, VAULT_PATH)}")
+
+    print(f"  [wrote]      {os.path.relpath(path, VAULT_PATH)}")
+    return True
 
 
 def append_file(path, content):
@@ -111,20 +120,18 @@ def get_logged_filenames():
     return logged
 
 
-def get_next_raw_file():
-    """
-    Find the newest file in raw-sources/ that hasn't been ingested yet.
-    Returns the full path, or None if everything is already processed.
-    """
-    logged = get_logged_filenames()
-    all_files = glob.glob(os.path.join(RAW, "**/*"), recursive=True)
-    all_files = [f for f in all_files if os.path.isfile(f)]
-    all_files.sort(key=os.path.getmtime, reverse=True)  # newest first
+def get_all_new_raw_files():
+    """Return every uningested file, newest first."""
+    logged = set(get_logged_filenames())
 
-    for f in all_files:
-        if os.path.basename(f) not in logged:
-            return f
-    return None
+    files = [
+        f for f in glob.glob(os.path.join(RAW, "**/*"), recursive=True)
+        if os.path.isfile(f)
+        and os.path.basename(f) not in logged
+    ]
+
+    files.sort(key=os.path.getmtime, reverse=True)
+    return files
 
 
 def append_log(source_name, written_files):
@@ -236,7 +243,7 @@ def parse_and_write(response, source_name):
         content = "\n".join(body).strip()
 
         if content and rel_path:
-            write_file(full_path, content)
+           if write_file(full_path, content):
             written.append(rel_path)
 
     if written:
@@ -261,7 +268,7 @@ def op_ingest():
     print("=" * 60)
 
     # Find the next file to process
-    source_file = get_next_raw_file()
+    source_file =get_all_new_raw_files()
     if not source_file:
         print("\n  No new files found in raw-sources/.")
         print("  Either all files have been ingested, or raw-sources/ is empty.")
@@ -342,18 +349,27 @@ def op_ingest_all():
 
     processed = 0
 
-    while True:
-        source_file = get_next_raw_file()
+    files = get_all_new_raw_files()
+    total = len(files)
 
-        if not source_file:
-            break
+    if total == 0:
+        print("\nNo new files to ingest.")
+        return
+
+    processed = 0
+    success = []
+    failed = []
+
+    for i, source_file in enumerate(files, start=1):
 
         name = os.path.basename(source_file)
+
+        print("\n" + "=" * 60)
+        print(f"[{i}/{total}] Processing: {name}")
+        print("=" * 60)
         content = truncate(read_file(source_file))
         schema = read_file(SCHEMA)
-        index = truncate(read_file(INDEX), 3000)
 
-        print(f"\n[{processed + 1}] Processing: {name}")
         print(f"    Characters: {len(content):,}")
 
         prompt = f"""You are a disciplined wiki maintainer. Follow these rules exactly:
@@ -408,10 +424,21 @@ Step 2: Update wiki/index.md.
 
 Write both files now."""
 
-        response = ask(prompt)
-        parse_and_write(response, name)
+        try:
+            response = ask(prompt)
+            parse_and_write(response, name)
+            index = truncate(read_file(INDEX), 3000)
 
-        processed += 1
+            success.append(name)
+            processed += 1
+
+        except Exception as e:
+            failed.append((name, str(e)))
+
+            print(f"\n❌ Failed: {name}")
+            print(e)
+
+            continue
 
     print("\n" + "=" * 60)
     print(f"Finished! Processed {processed} file(s).")
