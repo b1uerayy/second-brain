@@ -330,6 +330,92 @@ Write both files now. Use the === FILE: === markers exactly as shown."""
     response = ask(prompt)
     parse_and_write(response, name)
 
+# =============================================================================
+#  OPERATION: INGEST ALL
+#  Processes every unprocessed file in raw-sources/
+# =============================================================================
+
+def op_ingest_all():
+    print("\n" + "=" * 60)
+    print("  INGEST-ALL — processing every unprocessed file")
+    print("=" * 60)
+
+    processed = 0
+
+    while True:
+        source_file = get_next_raw_file()
+
+        if not source_file:
+            break
+
+        name = os.path.basename(source_file)
+        content = truncate(read_file(source_file))
+        schema = read_file(SCHEMA)
+        index = truncate(read_file(INDEX), 3000)
+
+        print(f"\n[{processed + 1}] Processing: {name}")
+        print(f"    Characters: {len(content):,}")
+
+        prompt = f"""You are a disciplined wiki maintainer. Follow these rules exactly:
+{schema}
+
+---
+SOURCE FILE NAME: {name}
+
+SOURCE CONTENT:
+{content}
+
+---
+CURRENT WIKI INDEX:
+{index}
+
+---
+TASK — INGEST OPERATION:
+
+Step 1: Write a summary wiki page for this source.
+
+Use this EXACT format:
+
+=== FILE: wiki/{name.replace(' ', '_').replace('.txt', '').replace('.md', '')}_summary.md ===
+---
+tags: [add relevant tags here]
+date_created: {today()[:10]}
+last_updated: {today()[:10]}
+source: {name}
+---
+
+# [Title]
+
+## Summary
+[2-3 paragraph summary]
+
+## Key Concepts
+[bullet list]
+
+## Connections
+[3-5 [[wiki-links]]]
+
+## Quotes Worth Keeping
+[1-3 quotes]
+
+=== END FILE ===
+
+Step 2: Update wiki/index.md.
+
+=== FILE: wiki/index.md ===
+[full updated index preserving existing entries]
+=== END FILE ===
+
+Write both files now."""
+
+        response = ask(prompt)
+        parse_and_write(response, name)
+
+        processed += 1
+
+    print("\n" + "=" * 60)
+    print(f"Finished! Processed {processed} file(s).")
+    print("=" * 60)
 
 # =============================================================================
 #  OPERATION: QUERY
@@ -700,6 +786,12 @@ COMMANDS = {
         "args": 0,
         "desc": "Process newest uningested file from raw-sources/",
         "example": "python3 brain.py ingest"
+    },
+    "ingest-all": {
+        "fn": op_ingest_all,
+        "args": 0,
+        "desc": "Process ALL uningested files from raw-sources/",
+        "example": "python3 brain.py ingest-all"
     },
     "query":    {
         "fn": op_query,
