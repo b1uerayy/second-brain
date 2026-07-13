@@ -22,6 +22,13 @@ import sys
 import json
 import datetime
 import glob
+import re
+def today():
+    def safe_filename(name):
+        """Convert filenames into safe wiki filenames."""
+        name = os.path.splitext(name)[0]
+        name = re.sub(r"[^\w\- ]", "", name)
+        return name.replace(" ", "_")
 
 try:
     import requests
@@ -220,6 +227,10 @@ def parse_and_write(response, source_name):
         [file content here]
         === END FILE ===
     """
+    if "=== FILE:" not in response:
+        print("\n⚠ Model did not generate any file blocks.")
+        return
+    
     sections = response.split("=== FILE:")
     written = []
 
@@ -277,6 +288,8 @@ def op_ingest():
 
     name    = os.path.basename(source_file)
     content = truncate(read_file(source_file))
+    if len(read_file(source_file)) > MAX_CHARS:
+        print("  ⚠ Large source detected. Content was truncated.")
     schema  = read_file(SCHEMA)
     index   = truncate(read_file(INDEX), 3000)
 
@@ -302,7 +315,7 @@ TASK — INGEST OPERATION:
 Step 1: Write a summary wiki page for this source.
 Use this EXACT format (do not skip the markers):
 
-=== FILE: wiki/{name.replace(' ', '_').replace('.txt', '').replace('.md', '')}_summary.md ===
+=== FILE: wiki/{safe_filename(name)}_summary.md ===
 ---
 tags: [add relevant tags here]
 date_created: {today()[:10]}
@@ -368,6 +381,8 @@ def op_ingest_all():
         print(f"[{i}/{total}] Processing: {name}")
         print("=" * 60)
         content = truncate(read_file(source_file))
+        if len(read_file(source_file)) > MAX_CHARS:
+            print("  ⚠ Large source detected. Content was truncated.")
         schema = read_file(SCHEMA)
 
         print(f"    Characters: {len(content):,}")
@@ -392,7 +407,7 @@ Step 1: Write a summary wiki page for this source.
 
 Use this EXACT format:
 
-=== FILE: wiki/{name.replace(' ', '_').replace('.txt', '').replace('.md', '')}_summary.md ===
+=== FILE: wiki/{safe_filename(name)}_summary.md ===
 ---
 tags: [add relevant tags here]
 date_created: {today()[:10]}
@@ -441,8 +456,17 @@ Write both files now."""
             continue
 
     print("\n" + "=" * 60)
-    print(f"Finished! Processed {processed} file(s).")
+    print("INGEST COMPLETE")
     print("=" * 60)
+
+    print(f"Successful : {len(success)}")
+    print(f"Failed     : {len(failed)}")
+    print(f"Processed  : {processed}")
+
+    if failed:
+        print("\nFailed files:")
+        for file, err in failed:
+            print(f" • {file}")
 
 # =============================================================================
 #  OPERATION: QUERY
