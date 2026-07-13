@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "raw-sources/How AI Is Disrupting an Entire Industry Knowledge-Based Work.md",
+                "file": "wiki/How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "How AI Is Disrupting an Entire Industry Knowledge-Based Work"
+              "title": "How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary"
             }
           }
         ]
@@ -183,9 +183,14 @@
   },
   "active": "7ff49c50ea88135a",
   "lastOpenFiles": [
+    "wiki/Issue_146_Building_1K-10K_MRR_Micro_SaaS_Products_AI_Customer_Service_Agents_Automated_SEO_Operations_AI_Headshot_Generation_Personal_Knowledge_Management_Menu_Creation__Management_-_Part_1_summary.md",
+    "wiki/Building_AI_Strategy_on_Sand_summary.md",
+    "wiki/AI_Knowledge_Base_Built_on_Karpathy’s_LLM_Wiki_Method_summary.md",
+    "wiki/How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
+    "Knowledge Compilation.md",
+    "raw-sources/How AI Is Disrupting an Entire Industry Knowledge-Based Work.md",
     "wiki/log.md",
     "wiki/index.md",
-    "wiki/AI_Knowledge_Base_Built_on_Karpathy’s_LLM_Wiki_Method_summary.md",
     "brain.py",
     "Screenshots/Screenshot 2026-07-05 135057.png",
     "Screenshots/Screenshot 2026-07-05 135000.png",
@@ -200,7 +205,6 @@
     "Screenshots/desktop.ini",
     "Screenshots",
     "raw-sources/AI Knowledge Base Built on Karpathy’s LLM Wiki Method.md",
-    "raw-sources/How AI Is Disrupting an Entire Industry Knowledge-Based Work.md",
     "brain.txt",
     "brain1.py",
     "New Text Document.txt",

@@ -23,12 +23,16 @@ import json
 import datetime
 import glob
 import re
+
+def safe_filename(name):
+    """Convert filenames into safe wiki filenames."""
+    name = os.path.splitext(name)[0]
+    name = re.sub(r"[^\w\- ]", "", name)
+    return name.replace(" ", "_")
+
+
 def today():
-    def safe_filename(name):
-        """Convert filenames into safe wiki filenames."""
-        name = os.path.splitext(name)[0]
-        name = re.sub(r"[^\w\- ]", "", name)
-        return name.replace(" ", "_")
+    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 try:
     import requests
@@ -107,10 +111,6 @@ def truncate(text, limit=None):
         return text[:n] + "\n\n[...content truncated to fit context window...]"
     return text
 
-
-def today():
-    """Return current date and time as a readable string."""
-    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 
 # =============================================================================
@@ -255,7 +255,7 @@ def parse_and_write(response, source_name):
 
         if content and rel_path:
            if write_file(full_path, content):
-            written.append(rel_path)
+                written.append(rel_path)
 
     if written:
         print(f"\n  ✓ Done. {len(written)} file(s) written to vault.")
@@ -279,17 +279,23 @@ def op_ingest():
     print("=" * 60)
 
     # Find the next file to process
-    source_file =get_all_new_raw_files()
-    if not source_file:
+    files = get_all_new_raw_files()
+
+    if not files:
         print("\n  No new files found in raw-sources/.")
         print("  Either all files have been ingested, or raw-sources/ is empty.")
-        print("  Add a new file using Obsidian Web Clipper, then run ingest again.")
         return
 
+    source_file = files[0]   # newest file
+    
+
     name    = os.path.basename(source_file)
-    content = truncate(read_file(source_file))
-    if len(read_file(source_file)) > MAX_CHARS:
+    raw = read_file(source_file)
+
+    if len(raw) > MAX_CHARS:
         print("  ⚠ Large source detected. Content was truncated.")
+
+    content = truncate(raw)
     schema  = read_file(SCHEMA)
     index   = truncate(read_file(INDEX), 3000)
 
@@ -372,6 +378,8 @@ def op_ingest_all():
     processed = 0
     success = []
     failed = []
+    schema = read_file(SCHEMA)
+    index = truncate(read_file(INDEX), 3000)
 
     for i, source_file in enumerate(files, start=1):
 
@@ -380,10 +388,13 @@ def op_ingest_all():
         print("\n" + "=" * 60)
         print(f"[{i}/{total}] Processing: {name}")
         print("=" * 60)
-        content = truncate(read_file(source_file))
-        if len(read_file(source_file)) > MAX_CHARS:
+        raw = read_file(source_file)
+
+        if len(raw) > MAX_CHARS:
             print("  ⚠ Large source detected. Content was truncated.")
-        schema = read_file(SCHEMA)
+
+        content = truncate(raw)
+        
 
         print(f"    Characters: {len(content):,}")
 
