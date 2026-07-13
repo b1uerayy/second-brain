@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "raw-sources/AI Knowledge Base Built on Karpathy’s LLM Wiki Method.md",
+                "file": "raw-sources/How AI Is Disrupting an Entire Industry Knowledge-Based Work.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AI Knowledge Base Built on Karpathy’s LLM Wiki Method"
+              "title": "How AI Is Disrupting an Entire Industry Knowledge-Based Work"
             }
           }
         ]
@@ -183,8 +183,25 @@
   },
   "active": "7ff49c50ea88135a",
   "lastOpenFiles": [
-    "raw-sources/Building AI Strategy on Sand.md",
+    "brain.py",
+    "Screenshots/Screenshot 2026-07-05 135057.png",
+    "Screenshots/Screenshot 2026-07-05 135000.png",
+    "Screenshots/Screenshot 2026-07-04 203222.png",
+    "Screenshots/Screenshot 2026-07-04 135706.png",
+    "Screenshots/Screenshot 2026-06-29 164500.png",
+    "Screenshots/Screenshot 2026-06-24 152956.png",
+    "Screenshots/Screenshot 2026-06-24 151144.png",
+    "Screenshots/Screenshot 2026-06-24 151107.png",
+    "Screenshots/Screenshot 2026-06-23 203542.png",
+    "Screenshots/Screenshot 2026-06-23 200317.png",
+    "Screenshots/desktop.ini",
+    "Screenshots",
     "raw-sources/AI Knowledge Base Built on Karpathy’s LLM Wiki Method.md",
+    "raw-sources/How AI Is Disrupting an Entire Industry Knowledge-Based Work.md",
+    "brain.txt",
+    "brain1.py",
+    "New Text Document.txt",
+    "raw-sources/Building AI Strategy on Sand.md",
     "raw-sources/Issue 146 Building $1K-$10K MRR Micro SaaS Products AI Customer Service Agents, Automated SEO Operations, AI Headshot Generation, Personal Knowledge Management, Menu Creation & Management - Part 1.md",
     "raw-sources/Why You Need a Knowledge Management System (and How AI Can Help You Make Money).md",
     "raw-sources/Generative AI for Knowledge Management.md",
@@ -193,9 +210,6 @@
     "raw-sources/OOP Concepts in Python.md",
     "raw-sources/How to Study Like a Peak Human The Neuroscience of Learning.md",
     "raw-sources/Study Tips for Exams.md",
-    "brain.py",
-    "brain.txt",
-    "New Text Document.txt",
     "raw-sources/The Quiet Anxiety That Can Drive Action.md",
     "Welcome.md",
     "moc",
