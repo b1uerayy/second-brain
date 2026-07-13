@@ -35,11 +35,11 @@ except ImportError:
 #  CONFIGURATION — edit these to match your setup
 # =============================================================================
 
-VAULT_PATH = os.path.expanduser("~/brain")   # path to your Obsidian vault
-MODEL      = "llama3.1:8b"                   # your downloaded Ollama model
+VAULT_PATH = os.path.expanduser(r"C:\Users\Rehan\second-brain")   # path to your Obsidian vault
+MODEL      = "qwen2.5:7b"                   # your downloaded Ollama model
                                               # run 'ollama list' to see options
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MAX_CHARS  = 12000  # max characters sent per request
+MAX_CHARS  = 6000  # max characters sent per request
                     # lower to 6000 if slow, raise to 16000 if fast machine
 
 
