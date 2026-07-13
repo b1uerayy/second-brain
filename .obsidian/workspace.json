@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "2a92b17c695cb60d",
+        "id": "1acbcda082bc42e9",
         "type": "tabs",
         "children": [
           {
-            "id": "96a960b29b90cd92",
+            "id": "61db52dfeb8ef3ec",
             "type": "leaf",
             "state": {
-              "type": "image",
-              "state": {
-                "file": "Screenshots/2021 cse (1).png"
-              },
-              "icon": "lucide-image",
-              "title": "2021 cse (1)"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -179,14 +177,23 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "96a960b29b90cd92",
+  "active": "61db52dfeb8ef3ec",
   "lastOpenFiles": [
+    "2026-07-13.md",
+    "Untitled.canvas",
+    "wiki/What_Is_an_AI_Operating_System_or_AI_OS_summary.md",
+    "raw-sources/What Is an AI Operating System or AI OS.md",
+    "raw-sources/Issue 146 Building $1K-$10K MRR Micro SaaS Products AI Customer Service Agents, Automated SEO Operations, AI Headshot Generation, Personal Knowledge Management, Menu Creation & Management - Part 1.md",
+    "raw-sources/OOP Concepts in Python.md",
+    "raw-sources/Study Tips for Exams.md",
+    "raw-sources/How to Study Like a Peak Human The Neuroscience of Learning.md",
+    "raw-sources/Generative AI for Knowledge Management.md",
+    "raw-sources/Biogas and India's energy mix A long-term bet we are making.md",
+    "Screenshots/2021 cse (1).png",
     "Screenshots/2021 csbs (1).png",
     "Knowledge Compilation.md",
     "Jaden Sibrian.md",
-    "wiki/What_Is_an_AI_Operating_System_or_AI_OS_summary.md",
     "wiki/Study_Tips_for_Exams_summary.md",
-    "raw-sources/What Is an AI Operating System or AI OS.md",
     "CLAUDE.md",
     "wiki/How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
     "wiki/Biogas_and_Indias_energy_mix_A_long-term_bet_we_are_making_summary.md",
@@ -207,8 +214,6 @@
     "Screenshots/Screenshot 2026-06-24 152956.png",
     "Screenshots/Screenshot 2026-06-24 151144.png",
     "Screenshots/Screenshot 2026-06-24 151107.png",
-    "Screenshots/Screenshot 2026-06-23 203542.png",
-    "Screenshots/Screenshot 2026-06-23 200317.png",
     "Screenshots/desktop.ini",
     "Screenshots",
     "raw-sources/AI Knowledge Base Built on Karpathy’s LLM Wiki Method.md",
@@ -216,13 +221,6 @@
     "brain1.py",
     "New Text Document.txt",
     "raw-sources/Building AI Strategy on Sand.md",
-    "raw-sources/Issue 146 Building $1K-$10K MRR Micro SaaS Products AI Customer Service Agents, Automated SEO Operations, AI Headshot Generation, Personal Knowledge Management, Menu Creation & Management - Part 1.md",
-    "raw-sources/Why You Need a Knowledge Management System (and How AI Can Help You Make Money).md",
-    "raw-sources/Generative AI for Knowledge Management.md",
-    "raw-sources/Biogas and India's energy mix A long-term bet we are making.md",
-    "raw-sources/OOP Concepts in Python.md",
-    "raw-sources/How to Study Like a Peak Human The Neuroscience of Learning.md",
-    "raw-sources/Study Tips for Exams.md",
     "moc",
     "wiki",
     "raw-sources"
