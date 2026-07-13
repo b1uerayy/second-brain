@@ -4,21 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "b9359f9315f0986d",
+        "id": "2a92b17c695cb60d",
         "type": "tabs",
         "children": [
           {
-            "id": "7ff49c50ea88135a",
+            "id": "96a960b29b90cd92",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "wiki/How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
-                "mode": "source",
-                "source": false
+                "file": "Screenshots/2021 cse (1).png"
               },
-              "icon": "lucide-file",
-              "title": "How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary"
+              "icon": "lucide-image",
+              "title": "2021 cse (1)"
             }
           }
         ]
@@ -181,17 +179,22 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7ff49c50ea88135a",
+  "active": "96a960b29b90cd92",
   "lastOpenFiles": [
+    "Screenshots/2021 csbs (1).png",
+    "Knowledge Compilation.md",
+    "Jaden Sibrian.md",
+    "wiki/What_Is_an_AI_Operating_System_or_AI_OS_summary.md",
+    "wiki/Study_Tips_for_Exams_summary.md",
+    "raw-sources/What Is an AI Operating System or AI OS.md",
+    "CLAUDE.md",
+    "wiki/How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
     "wiki/Biogas_and_Indias_energy_mix_A_long-term_bet_we_are_making_summary.md",
     "wiki/How_to_Study_Like_a_Peak_Human_The_Neuroscience_of_Learning_summary.md",
     "wiki/OOP_Concepts_in_Python_summary.md",
-    "wiki/Study_Tips_for_Exams_summary.md",
     "wiki/Issue_146_Building_1K-10K_MRR_Micro_SaaS_Products_AI_Customer_Service_Agents_Automated_SEO_Operations_AI_Headshot_Generation_Personal_Knowledge_Management_Menu_Creation__Management_-_Part_1_summary.md",
     "wiki/Building_AI_Strategy_on_Sand_summary.md",
     "wiki/AI_Knowledge_Base_Built_on_Karpathy’s_LLM_Wiki_Method_summary.md",
-    "wiki/How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
-    "Knowledge Compilation.md",
     "raw-sources/How AI Is Disrupting an Entire Industry Knowledge-Based Work.md",
     "wiki/log.md",
     "wiki/index.md",
@@ -216,13 +219,10 @@
     "raw-sources/Issue 146 Building $1K-$10K MRR Micro SaaS Products AI Customer Service Agents, Automated SEO Operations, AI Headshot Generation, Personal Knowledge Management, Menu Creation & Management - Part 1.md",
     "raw-sources/Why You Need a Knowledge Management System (and How AI Can Help You Make Money).md",
     "raw-sources/Generative AI for Knowledge Management.md",
-    "CLAUDE.md",
     "raw-sources/Biogas and India's energy mix A long-term bet we are making.md",
     "raw-sources/OOP Concepts in Python.md",
     "raw-sources/How to Study Like a Peak Human The Neuroscience of Learning.md",
     "raw-sources/Study Tips for Exams.md",
-    "raw-sources/The Quiet Anxiety That Can Drive Action.md",
-    "Welcome.md",
     "moc",
     "wiki",
     "raw-sources"
