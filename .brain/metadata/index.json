@@ -1,1 +1,83 @@
-{}
+{
+    "wiki\\AI_Knowledge_Base_Built_on_Karpathy\u2019s_LLM_Wiki_Method_summary.md": {
+        "id": "bd5ab750-dd0a-4ad0-abab-1e84a52acd02",
+        "title": "AI_Knowledge_Base_Built_on_Karpathy\u2019s_LLM_Wiki_Method_summary",
+        "path": "wiki\\AI_Knowledge_Base_Built_on_Karpathy\u2019s_LLM_Wiki_Method_summary.md",
+        "embedding": "bd5ab750-dd0a-4ad0-abab-1e84a52acd02.npy",
+        "created": "2026-07-15T22:31:50.410395",
+        "updated": "2026-07-15T22:31:50.410405",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\Biogas_and_Indias_energy_mix_A_long-term_bet_we_are_making_summary.md": {
+        "id": "d71950db-05c7-457e-ac9c-0072e551ac71",
+        "title": "Biogas_and_Indias_energy_mix_A_long-term_bet_we_are_making_summary",
+        "path": "wiki\\Biogas_and_Indias_energy_mix_A_long-term_bet_we_are_making_summary.md",
+        "embedding": "d71950db-05c7-457e-ac9c-0072e551ac71.npy",
+        "created": "2026-07-15T22:35:22.826938",
+        "updated": "2026-07-15T22:35:22.826949",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\Building_AI_Strategy_on_Sand_summary.md": {
+        "id": "4d58f186-ee8d-41d7-9b0b-2a76b1cdda03",
+        "title": "Building_AI_Strategy_on_Sand_summary",
+        "path": "wiki\\Building_AI_Strategy_on_Sand_summary.md",
+        "embedding": "4d58f186-ee8d-41d7-9b0b-2a76b1cdda03.npy",
+        "created": "2026-07-15T22:35:22.871971",
+        "updated": "2026-07-15T22:35:22.871980",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md": {
+        "id": "3c089f6d-2002-49cc-b975-12c61c5034e2",
+        "title": "How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary",
+        "path": "wiki\\How_AI_Is_Disrupting_an_Entire_Industry_Knowledge-Based_Work_summary.md",
+        "embedding": "3c089f6d-2002-49cc-b975-12c61c5034e2.npy",
+        "created": "2026-07-15T22:35:22.923954",
+        "updated": "2026-07-15T22:35:22.923963",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\How_to_Study_Like_a_Peak_Human_The_Neuroscience_of_Learning_summary.md": {
+        "id": "a16111af-9bcd-4a1b-9a33-04ef061f9e32",
+        "title": "How_to_Study_Like_a_Peak_Human_The_Neuroscience_of_Learning_summary",
+        "path": "wiki\\How_to_Study_Like_a_Peak_Human_The_Neuroscience_of_Learning_summary.md",
+        "embedding": "a16111af-9bcd-4a1b-9a33-04ef061f9e32.npy",
+        "created": "2026-07-15T22:35:22.983693",
+        "updated": "2026-07-15T22:35:22.983703",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\Issue_146_Building_1K-10K_MRR_Micro_SaaS_Products_AI_Customer_Service_Agents_Automated_SEO_Operations_AI_Headshot_Generation_Personal_Knowledge_Management_Menu_Creation__Management_-_Part_1_summary.md": {
+        "id": "7744037a-b356-4a25-9336-1da0998d5747",
+        "title": "Issue_146_Building_1K-10K_MRR_Micro_SaaS_Products_AI_Customer_Service_Agents_Automated_SEO_Operations_AI_Headshot_Generation_Personal_Knowledge_Management_Menu_Creation__Management_-_Part_1_summary",
+        "path": "wiki\\Issue_146_Building_1K-10K_MRR_Micro_SaaS_Products_AI_Customer_Service_Agents_Automated_SEO_Operations_AI_Headshot_Generation_Personal_Knowledge_Management_Menu_Creation__Management_-_Part_1_summary.md",
+        "embedding": "7744037a-b356-4a25-9336-1da0998d5747.npy",
+        "created": "2026-07-15T22:35:23.022897",
+        "updated": "2026-07-15T22:35:23.022905",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\OOP_Concepts_in_Python_summary.md": {
+        "id": "b89871fc-e67f-481a-91cd-de26a5bb88bb",
+        "title": "OOP_Concepts_in_Python_summary",
+        "path": "wiki\\OOP_Concepts_in_Python_summary.md",
+        "embedding": "b89871fc-e67f-481a-91cd-de26a5bb88bb.npy",
+        "created": "2026-07-15T22:35:23.092785",
+        "updated": "2026-07-15T22:35:23.092793",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\Study_Tips_for_Exams_summary.md": {
+        "id": "24ac58a5-0766-4b3b-a77b-f4f20f152bd0",
+        "title": "Study_Tips_for_Exams_summary",
+        "path": "wiki\\Study_Tips_for_Exams_summary.md",
+        "embedding": "24ac58a5-0766-4b3b-a77b-f4f20f152bd0.npy",
+        "created": "2026-07-15T22:35:23.150993",
+        "updated": "2026-07-15T22:35:23.151004",
+        "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\What_Is_an_AI_Operating_System_or_AI_OS_summary.md": {
+        "id": "c223dc05-bc93-4d0b-8dd9-15f4d641e5d6",
+        "title": "What_Is_an_AI_Operating_System_or_AI_OS_summary",
+        "path": "wiki\\What_Is_an_AI_Operating_System_or_AI_OS_summary.md",
+        "embedding": "c223dc05-bc93-4d0b-8dd9-15f4d641e5d6.npy",
+        "created": "2026-07-15T22:35:23.193249",
+        "updated": "2026-07-15T22:35:23.193257",
+        "model": "all-MiniLM-L6-v2"
+    }
+}

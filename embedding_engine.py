@@ -14,10 +14,12 @@ No Ollama.
 No prompts.
 No CLI.
 """
-
 import os
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import json
+import uuid
+from datetime import datetime
 
 # =============================================================================
 # PATHS
@@ -27,7 +29,16 @@ VAULT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 BRAIN_DIR = os.path.join(VAULT_PATH, ".brain")
 EMBED_DIR = os.path.join(BRAIN_DIR, "embeddings")
+META_DIR = os.path.join(BRAIN_DIR, "metadata")
 
+INDEX_FILE = os.path.join(
+    META_DIR,
+    "index.json"
+)
+os.makedirs(
+    META_DIR,
+    exist_ok=True
+)
 os.makedirs(EMBED_DIR, exist_ok=True)
 
 # =============================================================================
@@ -87,26 +98,17 @@ def embed_text(text):
 
 def embedding_path(wiki_file):
     """
-    Convert a wiki filename into an embedding filename.
+    Return the embedding path for a wiki page.
 
-    Example:
-
-    wiki/AI.md
-
-    becomes
-
-    .brain/embeddings/AI.npy
+    Automatically registers the page if necessary.
     """
 
-    filename = os.path.basename(wiki_file)
-
-    filename = os.path.splitext(filename)[0]
+    record = register_page(wiki_file)
 
     return os.path.join(
         EMBED_DIR,
-        filename + ".npy"
+        record["embedding"]
     )
-
 def wiki_from_embedding(embedding_file):
     """
     Convert an embedding filename back into a wiki filename.
@@ -124,6 +126,71 @@ def wiki_from_embedding(embedding_file):
 
     return name + ".md"
 
+# =============================================================================
+# METADATA
+# =============================================================================
+def load_metadata():
+    """
+    Load the metadata registry.
+    """
+
+    if not os.path.exists(INDEX_FILE):
+        return {}
+
+    with open(INDEX_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def save_metadata(data):
+    """
+    Save the metadata registry.
+    """
+
+    with open(
+        INDEX_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            data,
+            f,
+            indent=4
+        )
+
+# =============================================================================
+# PAGE REGISTRY
+# =============================================================================
+def register_page(wiki_file):
+    """
+    Register a wiki page if it has never been seen before.
+
+    Returns the metadata record.
+    """
+
+    db = load_metadata()
+
+    key = os.path.relpath(wiki_file, VAULT_PATH)
+
+    if key in db:
+        return db[key]
+
+    page_id = str(uuid.uuid4())
+
+    record = {
+        "id": page_id,
+        "title": os.path.splitext(os.path.basename(wiki_file))[0],
+        "path": key,
+        "embedding": page_id + ".npy",
+        "created": datetime.now().isoformat(),
+        "updated": datetime.now().isoformat(),
+        "model": "all-MiniLM-L6-v2"
+    }
+
+    db[key] = record
+
+    save_metadata(db)
+
+    return record
 # =============================================================================
 # STORAGE
 # =============================================================================
@@ -223,6 +290,21 @@ def embed_wiki_page(wiki_file):
 
     return embedding
 
+# =============================================================================
+# SYNCHRONIZATION
+# =============================================================================
+
+def update_embedding(wiki_file):
+    """
+    Create or refresh the embedding for a wiki page.
+
+    Safe to call repeatedly.
+    """
+
+    if not os.path.exists(wiki_file):
+        return
+
+    embed_wiki_page(wiki_file)
 # =============================================================================
 # INDEX ALL WIKI PAGES
 # =============================================================================
@@ -382,19 +464,3 @@ def find_similar_pages(wiki_file, top_n=5):
 if __name__ == "__main__":
 
     embed_all_wiki_pages()
-
-    print("\n")
-
-    page = os.path.join(
-        VAULT_PATH,
-        "wiki",
-        "AI_Knowledge_Base_Built_on_Karpathy’s_LLM_Wiki_Method_summary.md"
-    )
-
-    similar = find_similar_pages(page)
-
-    print("Most similar pages:\n")
-
-    for name, score in similar:
-
-        print(f"{score:.3f}   {name}")

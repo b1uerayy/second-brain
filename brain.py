@@ -23,6 +23,7 @@ import json
 import datetime
 import glob
 import re
+import embedding_engine
 
 def safe_filename(name):
     """Convert filenames into safe wiki filenames."""
@@ -256,6 +257,12 @@ def parse_and_write(response, source_name):
         if content and rel_path:
            if write_file(full_path, content):
                 written.append(rel_path)
+                # Update embedding automatically
+                if rel_path.startswith("wiki/"):
+
+                    if not rel_path.endswith("index.md") and not rel_path.endswith("log.md"):
+
+                        embedding_engine.update_embedding(full_path)
 
     if written:
         print(f"\n  ✓ Done. {len(written)} file(s) written to vault.")
