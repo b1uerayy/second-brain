@@ -40,6 +40,30 @@ EMBEDDER = SentenceTransformer("all-MiniLM-L6-v2")
 
 print("Embedding model loaded.")
 
+EMBED_CACHE = {}
+
+def load_all_embeddings():
+    """
+    Load every embedding into memory once.
+    """
+
+    global EMBED_CACHE
+
+    if EMBED_CACHE:
+        return EMBED_CACHE
+
+    for file in os.listdir(EMBED_DIR):
+
+        if file.endswith(".npy"):
+
+            EMBED_CACHE[file] = np.load(
+                os.path.join(EMBED_DIR, file)
+            )
+
+    return EMBED_CACHE
+
+
+
 # =============================================================================
 # EMBEDDING
 # =============================================================================
@@ -179,7 +203,7 @@ def read_wiki_page(wiki_file):
         if current_section in useful_sections:
             cleaned.append(line)
 
-    return "".join(cleaned)
+    return "\n".join(cleaned)
 
 # =============================================================================
 # WIKI PAGE EMBEDDING
@@ -211,10 +235,13 @@ def embed_all_wiki_pages():
     wiki_dir = os.path.join(VAULT_PATH, "wiki")
 
     files = [
-        f
-        for f in os.listdir(wiki_dir)
-        if f.endswith(".md")
-    ]
+    f
+    for f in os.listdir(wiki_dir)
+    if (
+        f.endswith(".md")
+        and f not in ("index.md", "log.md")
+    )
+   ]
 
     if not files:
         print("No wiki pages found.")
@@ -243,7 +270,9 @@ def rebuild_embeddings():
     Delete all embeddings and regenerate them.
     """
 
-    for file in os.listdir(EMBED_DIR):
+    embeddings = load_all_embeddings()
+
+    for file, candidate_vec in embeddings.items():
 
         if file.endswith(".npy"):
 
