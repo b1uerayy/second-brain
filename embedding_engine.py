@@ -48,8 +48,8 @@ os.makedirs(EMBED_DIR, exist_ok=True)
 print("Loading embedding model...")
 
 EMBEDDER = None
-def get_embedder():
 
+def get_embedder():
     global EMBEDDER
 
     if EMBEDDER is None:
@@ -59,6 +59,8 @@ def get_embedder():
         EMBEDDER = SentenceTransformer(
             "all-MiniLM-L6-v2"
         )
+
+        print("Embedding model loaded.")
 
     return EMBEDDER
 
@@ -92,7 +94,6 @@ def load_all_embeddings():
 # =============================================================================
 # EMBEDDING
 # =============================================================================
-
 def embed_text(text):
 
     embedder = get_embedder()

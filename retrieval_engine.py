@@ -140,6 +140,40 @@ def retrieve_similar_pages(
 # =============================================================================
 # PUBLIC API
 # =============================================================================
+def build_context(query, top_n=5):
+    """
+    Build a formatted context string for the LLM.
+    """
+
+    pages = retrieve_context(query, top_n)
+
+    if not pages:
+        return "No relevant knowledge found."
+
+    context = []
+
+    for page in pages:
+
+        concepts = "\n".join(
+            f"- {c}" for c in page["key_concepts"]
+        )
+
+        section = f"""
+============================================================
+SOURCE: {page['title']}
+Similarity: {page['score']:.3f}
+
+SUMMARY
+{page['summary']}
+
+KEY CONCEPTS
+{concepts}
+"""
+
+        context.append(section)
+
+    return "\n".join(context)
+
 def retrieve_context(query, top_n=5):
     """
     Retrieve the most relevant knowledge for a text query.

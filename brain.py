@@ -24,6 +24,7 @@ import datetime
 import glob
 import re
 import embedding_engine
+import retrieval_engine
 
 def safe_filename(name):
     """Convert filenames into safe wiki filenames."""
@@ -498,25 +499,57 @@ def op_query(question):
 
     schema = read_file(SCHEMA)
     index  = truncate(read_file(INDEX), 5000)
+    context = retrieval_engine.build_context(
+    question,
+    top_n=5
+    )   
 
     print(f"\n  Question: {question}\n")
 
-    prompt = f"""You are a knowledgeable assistant with access to a personal wiki.
-Follow these rules:
-{schema}
+    prompt = f"""
+    You are a knowledgeable assistant with access to my personal knowledge base.
 
----
-WIKI INDEX (catalog of all pages):
-{index}
+    Follow these rules:
 
----
-QUESTION: {question}
+    {schema}
 
-Search the wiki index for relevant pages. Synthesize a clear, specific answer.
-For each claim, cite which wiki page it comes from using [source: page-name] notation.
-If your wiki lacks enough information to answer well, say so clearly and suggest
-what sources or topics the person should add to their wiki to answer this better.
-Be direct. Do not pad the answer."""
+    ============================================================
+    RELEVANT KNOWLEDGE
+    ============================================================
+
+    {context}
+
+    ============================================================
+    WIKI INDEX (catalog)
+    ============================================================
+
+    {index}
+
+    ============================================================
+    QUESTION
+    ============================================================
+
+    {question}
+
+    Instructions:
+
+    1. Use the retrieved knowledge as your PRIMARY source.
+
+    2. If the retrieved knowledge completely answers the question,
+    do not invent additional information.
+
+    3. If the retrieved knowledge is incomplete,
+    you may use your own general knowledge,
+    but clearly distinguish it from what came from the knowledge base.
+
+    4. Cite relevant notes using
+    [source: page-title].
+
+    5. If the vault lacks sufficient information,
+    say so and suggest what information would make future answers better.
+
+    Answer clearly and concisely.
+    """
 
     ask(prompt)
 
