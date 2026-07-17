@@ -47,7 +47,21 @@ os.makedirs(EMBED_DIR, exist_ok=True)
 
 print("Loading embedding model...")
 
-EMBEDDER = SentenceTransformer("all-MiniLM-L6-v2")
+EMBEDDER = None
+def get_embedder():
+
+    global EMBEDDER
+
+    if EMBEDDER is None:
+
+        print("Loading embedding model...")
+
+        EMBEDDER = SentenceTransformer(
+            "all-MiniLM-L6-v2"
+        )
+
+    return EMBEDDER
+
 
 print("Embedding model loaded.")
 
@@ -80,14 +94,10 @@ def load_all_embeddings():
 # =============================================================================
 
 def embed_text(text):
-    """
-    Convert text into a semantic embedding.
 
-    Returns:
-        numpy.ndarray
-    """
+    embedder = get_embedder()
 
-    return EMBEDDER.encode(
+    return embedder.encode(
         text,
         normalize_embeddings=True
     )
@@ -305,6 +315,7 @@ def update_embedding(wiki_file):
         return
 
     embed_wiki_page(wiki_file)
+    print(f"Updated embedding: {os.path.basename(wiki_file)}")
 # =============================================================================
 # INDEX ALL WIKI PAGES
 # =============================================================================

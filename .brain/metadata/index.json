@@ -79,5 +79,14 @@
         "created": "2026-07-15T22:35:23.193249",
         "updated": "2026-07-15T22:35:23.193257",
         "model": "all-MiniLM-L6-v2"
+    },
+    "wiki\\Generative_AI_for_Knowledge_Management_summary.md": {
+        "id": "529c0632-0c42-4d4f-aec8-bbaf185f1347",
+        "title": "Generative_AI_for_Knowledge_Management_summary",
+        "path": "wiki\\Generative_AI_for_Knowledge_Management_summary.md",
+        "embedding": "529c0632-0c42-4d4f-aec8-bbaf185f1347.npy",
+        "created": "2026-07-15T22:42:29.523899",
+        "updated": "2026-07-15T22:42:29.523909",
+        "model": "all-MiniLM-L6-v2"
     }
 }

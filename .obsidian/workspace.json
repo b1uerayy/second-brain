@@ -183,6 +183,9 @@
   },
   "active": "61db52dfeb8ef3ec",
   "lastOpenFiles": [
+    "wiki/Generative_AI_for_Knowledge_Management_summary.md",
+    "__pycache__/embedding_engine.cpython-314.pyc",
+    "__pycache__",
     "wiki/index.md",
     "wiki/Building_AI_Strategy_on_Sand_summary.md",
     "New folder",
@@ -226,8 +229,6 @@
     "brain.txt",
     "brain1.py",
     "New Text Document.txt",
-    "moc",
-    "wiki",
-    "raw-sources"
+    "moc"
   ]
 }
