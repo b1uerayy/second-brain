@@ -121,20 +121,18 @@ def embedding_path(wiki_file):
     )
 def wiki_from_embedding(embedding_file):
     """
-    Convert an embedding filename back into a wiki filename.
-
-    AI.npy
-
-    becomes
-
-    AI.md
+    Return the wiki filename corresponding to an embedding file.
     """
 
-    name = os.path.splitext(
-        os.path.basename(embedding_file)
-    )[0]
+    db = load_metadata()
 
-    return name + ".md"
+    for wiki_path, record in db.items():
+
+        if record["embedding"] == embedding_file:
+
+            return os.path.basename(wiki_path)
+
+    return None
 
 # =============================================================================
 # METADATA
@@ -449,11 +447,11 @@ def find_similar_pages(wiki_file, top_n=5):
         )
 
         wiki_name = wiki_from_embedding(file)
-
+        if wiki_name is None:
+            continue
         # Don't compare page to itself
         if wiki_name == os.path.basename(wiki_file):
             continue
-
         results.append(
             (
                 wiki_name,
