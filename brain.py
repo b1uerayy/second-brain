@@ -498,7 +498,6 @@ def op_query(question):
     print("=" * 60)
 
     schema = read_file(SCHEMA)
-    index  = truncate(read_file(INDEX), 5000)
     context = retrieval_engine.build_context(
     question,
     top_n=5

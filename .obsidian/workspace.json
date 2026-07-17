@@ -183,6 +183,7 @@
   },
   "active": "61db52dfeb8ef3ec",
   "lastOpenFiles": [
+    "__pycache__/retrieval_engine.cpython-314.pyc",
     "wiki/log.md",
     "retrieval_engine.py",
     "retrieval.txt",
