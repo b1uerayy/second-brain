@@ -506,49 +506,44 @@ def op_query(question):
     print(f"\n  Question: {question}\n")
 
     prompt = f"""
-    You are a knowledgeable assistant with access to my personal knowledge base.
+        You are an AI assistant with access to my personal knowledge base.
 
-    Follow these rules:
+        Follow these rules:
 
-    {schema}
+        {schema}
 
-    ============================================================
-    RELEVANT KNOWLEDGE
-    ============================================================
+        ============================================================
+        RELEVANT KNOWLEDGE
+        ============================================================
 
-    {context}
+        {context}
 
-    ============================================================
-    WIKI INDEX (catalog)
-    ============================================================
+        ============================================================
+        QUESTION
+        ============================================================
 
-    {index}
+        {question}
 
-    ============================================================
-    QUESTION
-    ============================================================
+        Instructions:
 
-    {question}
+        1. Use the retrieved knowledge as your PRIMARY source.
 
-    Instructions:
+        2. Cite the notes you use in the format:
+        [source: page-title]
 
-    1. Use the retrieved knowledge as your PRIMARY source.
+        3. If the retrieved notes fully answer the question,
+        do not invent extra information.
 
-    2. If the retrieved knowledge completely answers the question,
-    do not invent additional information.
+        4. If the notes are incomplete,
+        clearly say what is missing.
+        You may use general knowledge when necessary,
+        but distinguish it from the knowledge base.
 
-    3. If the retrieved knowledge is incomplete,
-    you may use your own general knowledge,
-    but clearly distinguish it from what came from the knowledge base.
+        5. If no relevant notes are found,
+        say so and suggest what information should be added to the vault.
 
-    4. Cite relevant notes using
-    [source: page-title].
-
-    5. If the vault lacks sufficient information,
-    say so and suggest what information would make future answers better.
-
-    Answer clearly and concisely.
-    """
+        Answer clearly and concisely.
+        """
 
     ask(prompt)
 

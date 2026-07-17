@@ -45,7 +45,6 @@ os.makedirs(EMBED_DIR, exist_ok=True)
 # MODEL
 # =============================================================================
 
-print("Loading embedding model...")
 
 EMBEDDER = None
 
