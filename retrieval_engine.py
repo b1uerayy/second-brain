@@ -27,10 +27,12 @@ WIKI_DIR = os.path.join(
     VAULT_PATH,
     "wiki"
 )
-
-def read_page(path):
+# =============================================================================
+# PAGE PARSING
+# =============================================================================
+def extract_knowledge(path):
     """
-    Read a wiki page.
+    Extract only the useful information from a wiki page.
     """
 
     with open(
@@ -39,7 +41,59 @@ def read_page(path):
         encoding="utf-8"
     ) as f:
 
-        return f.read()
+        text = f.read()
+    title = ""
+
+    for line in text.splitlines():
+
+        if line.startswith("# "):
+
+            title = line[2:].strip()
+
+            break
+    summary = ""
+
+    if "## Summary" in text:
+
+        part = text.split("## Summary", 1)[1]
+
+        if "##" in part:
+
+            summary = part.split("##", 1)[0]
+
+        else:
+
+            summary = part
+
+    summary = summary.strip()
+    concepts = []
+
+    if "## Key Concepts" in text:
+
+        part = text.split("## Key Concepts", 1)[1]
+
+        if "##" in part:
+
+            part = part.split("##", 1)[0]
+
+        for line in part.splitlines():
+
+            line = line.strip()
+
+            if line.startswith("-"):
+
+                concepts.append(
+                    line[1:].strip()
+                )
+    return {
+
+        "title": title,
+
+        "summary": summary,
+
+        "key_concepts": concepts
+
+    }
     
 def retrieve_similar_pages(
     wiki_file,
@@ -66,44 +120,111 @@ def retrieve_similar_pages(
         if not os.path.exists(path):
             continue
 
+        knowledge = extract_knowledge(path)
+
         results.append({
 
-            "title": name,
+            "title": knowledge["title"],
 
             "score": score,
 
-            "path": path,
+            "summary": knowledge["summary"],
 
-            "content": read_page(path)
+            "key_concepts": knowledge["key_concepts"],
+
+            "path": path
 
         })
 
     return results
+# =============================================================================
+# PUBLIC API
+# =============================================================================
+def retrieve_context(query, top_n=5):
+    """
+    Retrieve the most relevant knowledge for a text query.
+    """
+
+    # Convert the query into an embedding
+    query_embedding = embedding_engine.embed_text(query)
+
+    results = []
+
+    metadata = embedding_engine.load_metadata()
+
+    for wiki_path, record in metadata.items():
+
+        embedding_path = os.path.join(
+            embedding_engine.EMBED_DIR,
+            record["embedding"]
+        )
+
+        if not os.path.exists(embedding_path):
+            continue
+
+        candidate_embedding = np.load(embedding_path)
+
+        score = embedding_engine.cosine_similarity(
+            query_embedding,
+            candidate_embedding
+        )
+
+        full_path = os.path.join(
+            embedding_engine.VAULT_PATH,
+            wiki_path
+        )
+
+        if not os.path.exists(full_path):
+            continue
+
+        knowledge = extract_knowledge(full_path)
+
+        results.append({
+
+            "title": knowledge["title"],
+
+            "score": score,
+
+            "summary": knowledge["summary"],
+
+            "key_concepts": knowledge["key_concepts"],
+
+            "path": full_path
+
+        })
+
+    results.sort(
+        key=lambda x: x["score"],
+        reverse=True
+    )
+
+    return results[:top_n]
 
 if __name__ == "__main__":
 
-    page = os.path.join(
-
-        WIKI_DIR,
-
-        "AI_Knowledge_Base_Built_on_Karpathy’s_LLM_Wiki_Method_summary.md"
-
+    results = retrieve_context(
+        "How can AI improve knowledge management?"
     )
 
-    pages = retrieve_similar_pages(page)
-
-    for p in pages:
-
-        print()
+    for page in results:
 
         print("=" * 60)
 
-        print(p["title"])
+        print(page["title"])
 
-        print(p["score"])
+        print(f"Score: {page['score']:.3f}")
 
         print()
 
-        print(p["content"][:300])
+        print("Summary:")
+        print(page["summary"])
 
-        print("...")
+        print()
+
+        print("Key Concepts:")
+
+        for concept in page["key_concepts"]:
+            print("-", concept)
+
+        print()
+
