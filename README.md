@@ -1,159 +1,387 @@
-# 🧠 Second Brain
+# Second Brain
 
-> An AI-powered personal knowledge management system that transforms scattered information into connected, actionable knowledge.
+> A local AI-powered knowledge operating system that transforms raw information into an interconnected, searchable knowledge base using semantic search and Retrieval-Augmented Generation (RAG).
 
----
+<img width="1590" height="1059" alt="a7fefb722b92c129d277510f83623169ceaac83b" src="https://github.com/user-attachments/assets/fed2d4cf-265f-4f81-a390-c175099b2697" />
 
-## The Problem
+## Overview
 
-We live in an age of information abundance.
+Second Brain is a fully local knowledge management system designed to solve a common problem:
 
-Every day we save articles, bookmark websites, star GitHub repositories, highlight books, and take notes. We tell ourselves we'll come back to them later.
+We save hundreds of articles, videos, notes, and ideas—but almost never revisit them.
 
-Most of the time, we never do.
+Instead of acting as a storage system, Second Brain continuously converts raw information into structured knowledge that compounds over time.
 
-Over time, our knowledge becomes scattered across note-taking apps, browsers, documents, chats, and code repositories. We don't have an information shortage—we have an information management problem.
+It automatically:
 
-Traditional note-taking applications are great at storing information, but they don't understand it.
+- Ingests articles and notes
+- Extracts structured knowledge using an LLM
+- Builds a semantic vector index
+- Retrieves relevant knowledge using embeddings
+- Answers questions grounded in your own knowledge base
 
-Modern Large Language Models (LLMs) can answer questions remarkably well, but they don't naturally maintain a persistent, structured understanding of *your* knowledge.
-
-There is a gap between storage and understanding.
-
-Second Brain aims to bridge that gap.
-
----
-
-# What is Second Brain?
-
-Second Brain is an AI-powered knowledge management system that combines the permanence of a note-taking application with the reasoning capabilities of modern language models.
-
-Instead of simply storing notes, it continuously works with your knowledge.
-
-The long-term vision is an AI that can:
-
-* Understand your personal knowledge base
-* Connect related ideas automatically
-* Organize information intelligently
-* Update existing notes instead of creating duplicates
-* Remember what you've learned over time
-* Help retrieve knowledge through natural language
-
-Think of it as:
-
-> **Obsidian + AI + Long-Term Memory**
+Unlike traditional note-taking applications, Second Brain is designed to become an intelligent knowledge layer rather than another folder full of notes.
 
 ---
 
-# Current Features
+# Features
 
-The project is currently in its early development stages.
+## Knowledge Ingestion
 
-### ✅ Working
+- Automatic processing of new articles
+- Converts raw documents into structured wiki pages
+- Generates summaries and key concepts
+- Updates vault automatically
 
-* Reads an Obsidian knowledge vault
-* Understands existing context
-* Updates notes with new information
-* Automatically organizes knowledge
-* Local LLM support
-* End-to-end workflow
+## Semantic Search
+
+Instead of keyword matching, the system searches by meaning.
+
+```
+User Question
+      ↓
+Sentence Embedding
+      ↓
+Cosine Similarity
+      ↓
+Top-k Relevant Notes
+```
+<img width="982" height="486" alt="image" src="https://github.com/user-attachments/assets/81cc8989-e140-46d2-bdf6-4cc4df985b7b" />
+
+## Retrieval-Augmented Generation (RAG)
+
+Retrieved knowledge is injected into the LLM prompt before answering.
+
+```
+Question
+      ↓
+Semantic Retrieval
+      ↓
+Relevant Knowledge
+      ↓
+LLM
+      ↓
+Grounded Response
+```
+<img width="432" height="585" alt="image" src="https://github.com/user-attachments/assets/aa5ba0d2-8272-49b4-81af-daaa4d6d2605" />
+
+
+## Automatic Embeddings
+
+Every generated wiki page automatically receives a semantic embedding.
+
+Embeddings stay synchronized with the knowledge base during ingestion.
+
+## UUID-based Metadata Registry
+
+Pages are tracked using permanent UUIDs rather than filenames.
+
+Metadata includes:
+
+- UUID
+- Title
+- Path
+- Embedding location
+- Timestamps
+- Embedding model
+
+This prevents broken references when notes are renamed.
+
+## Modular Architecture
+
+Responsibilities are separated into independent modules:
+
+- Ingestion
+- Embeddings
+- Retrieval
+- Knowledge generation
 
 ---
 
-# Planned Features
+# Architecture
 
-The roadmap includes:
-
-* Semantic Search
-* Knowledge Graph Generation
-* Automatic Note Linking
-* Intelligent Tagging
-* Daily Knowledge Summaries
-* Research Assistant
-* Learning Companion
-* Retrieval-Augmented Generation (RAG)
-* Long-term Memory
-* Multi-file Context Understanding
-* Plugin Architecture
-* Local-first Design
+```
+                    Raw Sources
+               (Articles / Notes)
+                       │
+                       ▼
+                 brain.py ingest
+                       │
+                       ▼
+             Qwen2.5 (Knowledge Extraction)
+                       │
+                       ▼
+               Structured Wiki Pages
+                       │
+                       ▼
+             embedding_engine.py
+                       │
+        ┌──────────────┴──────────────┐
+        ▼                             ▼
+ Embeddings (.npy)             Metadata Registry
+        │                             │
+        └──────────────┬──────────────┘
+                       ▼
+             retrieval_engine.py
+                       │
+                       ▼
+              Semantic Search
+                       │
+                       ▼
+               Context Builder
+                       │
+                       ▼
+               Qwen2.5 via Ollama
+                       │
+                       ▼
+             Grounded AI Response
+```
 
 ---
 
-# Architecture (Current)
+# Retrieval Pipeline
 
-```text
-                User
-                  │
-                  ▼
-             brain.py
-                  │
-      ┌───────────┴───────────┐
-      │                       │
-      ▼                       ▼
- Local LLM              Obsidian Vault
-      │                       │
-      └───────────┬───────────┘
-                  ▼
-        Updated Knowledge Base
+```
+User Question
+      │
+      ▼
+Generate Query Embedding
+      │
+      ▼
+Cosine Similarity Search
+      │
+      ▼
+Top-k Retrieval
+      │
+      ▼
+Knowledge Extraction
+      │
+      ▼
+Prompt Construction
+      │
+      ▼
+LLM Response
+```
+
+---
+
+# Project Structure
+
+```
+second-brain/
+
+├── brain.py
+├── embedding_engine.py
+├── retrieval_engine.py
+├── CLAUDE.md
+│
+├── raw-sources/
+│
+├── wiki/
+│
+├── moc/
+│
+└── .brain/
+    ├── embeddings/
+    └── metadata/
 ```
 
 ---
 
 # Tech Stack
 
-* Python
-* Local LLMs
-* Obsidian Markdown Vault
-* Markdown Processing
-* Prompt Engineering
+### Language
+
+- Python
+
+### Local LLM
+
+- Qwen2.5:7B
+- Ollama
+
+### Embedding Model
+
+- sentence-transformers
+- all-MiniLM-L6-v2
+
+### Vector Search
+
+- NumPy
+- Cosine Similarity
+
+### Knowledge Storage
+
+- Markdown
+- UUID metadata registry
+- Local embedding files (.npy)
 
 ---
 
-# Why Local?
+# Commands
 
-Second Brain is designed with privacy in mind.
+## Ingest newest file
 
-Your notes represent your personal knowledge and shouldn't have to leave your machine.
+```bash
+python brain.py ingest
+```
 
-Running everything locally allows for:
+## Ingest all files
 
-* Privacy
-* Offline usage
-* Lower long-term cost
-* Full control over your data
+```bash
+python brain.py ingest-all
+```
+
+## Query the knowledge base
+
+```bash
+python brain.py query "How can AI improve knowledge management?"
+```
+
+## Generate morning digest
+
+```bash
+python brain.py digest
+```
+
+## Weekly vault health check
+
+```bash
+python brain.py lint
+```
+
+## Monthly reflection
+
+```bash
+python brain.py mirror
+```
+
+## Decision brief
+
+```bash
+python brain.py decision
+```
+
+## Create Map of Content
+
+```bash
+python brain.py moc
+```
 
 ---
 
-# Project Status
+# Technical Details
 
-🚧 Early Development
+## Knowledge Representation
 
-The current version runs entirely from the terminal and focuses on building a reliable core workflow before adding more advanced capabilities.
+The system converts raw documents into structured wiki pages containing:
 
-The foundation is working.
+- Summary
+- Key Concepts
+- Relationships
+- Source Information
 
-Now it's time to make it smarter.
-
----
-
-# Vision
-
-Imagine an AI that doesn't just answer your questions.
-
-Imagine one that remembers everything you've learned over the past five years, understands how those ideas relate to one another, and helps you build upon them.
-
-That's the goal of Second Brain.
+The wiki serves as the canonical knowledge representation.
 
 ---
 
-# Contributing
+## Embedding System
 
-The project is still evolving, and ideas, feedback, and discussions are always welcome.
+Each wiki page receives a semantic embedding generated using SentenceTransformers.
 
-If you have suggestions or would like to contribute, feel free to open an issue or submit a pull request.
+Embeddings are stored independently from notes and linked through a UUID-based metadata registry.
+
+This allows:
+
+- File renaming
+- File movement
+- Duplicate titles
+
+without invalidating embeddings.
 
 ---
 
-# License
+## Metadata Registry
+
+Each document stores metadata similar to:
+
+```json
+{
+  "id": "...",
+  "title": "...",
+  "path": "...",
+  "embedding": "...",
+  "created": "...",
+  "updated": "...",
+  "model": "all-MiniLM-L6-v2"
+}
+```
+
+---
+
+## Retrieval
+
+Retrieval consists of:
+
+1. Embed user query
+2. Compare with stored embeddings
+3. Rank using cosine similarity
+4. Retrieve top-k notes
+5. Extract summaries and concepts
+6. Build RAG context
+7. Generate grounded answer
+
+---
+
+# Current Capabilities
+
+- ✅ Automatic knowledge ingestion
+- ✅ Structured wiki generation
+- ✅ Local embeddings
+- ✅ Metadata registry
+- ✅ Semantic search
+- ✅ Retrieval-Augmented Generation (RAG)
+- ✅ Grounded question answering
+- ✅ Local-first architecture
+
+---
+
+# Roadmap
+
+## Retrieval
+
+- [ ] Chunk-level retrieval
+- [ ] Hybrid search (semantic + keyword)
+- [ ] Cross-encoder reranking
+- [ ] Incremental embedding updates
+
+## Knowledge
+
+- [ ] Automatic semantic backlinks
+- [ ] Entity extraction
+- [ ] Knowledge graph generation
+- [ ] Relationship discovery
+
+## Intelligence
+
+- [ ] Research mode
+- [ ] Multi-document synthesis
+- [ ] Autonomous knowledge maintenance
+- [ ] Self-improving knowledge graph
+
+---
+
+# Why?
+
+Modern note-taking applications optimize for storing information.
+
+Second Brain optimizes for **using** information.
+
+Instead of remembering where something was saved, you simply ask a question and receive an answer grounded in your own accumulated knowledge.
+
+The goal is to build a personal knowledge system that compounds over time—turning information into an interconnected, searchable, and continuously growing knowledge base.
+
+---
+
+## License
 
 MIT License
